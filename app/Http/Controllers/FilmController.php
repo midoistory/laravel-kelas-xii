@@ -11,6 +11,7 @@ use App\Models\{
 use App\Http\Requests\StoreFilmRequest;
 use App\Http\Requests\UpdateFilmRequest;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class FilmController extends Controller
 {
@@ -122,5 +123,13 @@ class FilmController extends Controller
                 ->OrderBy('created_at', 'asc')
                 ->paginate(18);
         return view('components/movies', compact('films','genreFilm'));
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('cari');
+        $film = Film::where('title', 'like', "%".$keyword."%")->paginate(18);
+
+        return view('components.searchresult', compact('film'));
     }
 }
