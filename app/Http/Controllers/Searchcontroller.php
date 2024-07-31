@@ -9,8 +9,12 @@ class SearchController extends Controller
 {
     public function search(Request $request)
     {
-        $keyword = $request->input('cari');
-        $film = Film::where('title', 'like', "%".$keyword."%")->paginate(18);
+        $keyword = $request->input('search');
+        $film = Film::where('title', 'like', "%".$keyword."%")
+        ->orwhere('sinopsis', 'like', "%".$keyword."%")
+        ->orWhere('year', 'like', "%".$keyword."%")
+        ->distinct()
+        ->paginate(10);
 
         return view('components.searchresult', compact('film'));
     }

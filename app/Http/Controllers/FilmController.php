@@ -124,12 +124,4 @@ class FilmController extends Controller
                 ->paginate(18);
         return view('components/movies', compact('films','genreFilm'));
     }
-
-    public function search(Request $request)
-    {
-        $keyword = $request->input('cari');
-        $film = Film::where('title', 'like', "%".$keyword."%")->paginate(18);
-
-        return view('components.searchresult', compact('film'));
-    }
 }
