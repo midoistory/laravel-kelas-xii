@@ -13,8 +13,7 @@ class SearchController extends Controller
         $film = Film::where('title', 'like', "%".$keyword."%")
         ->orwhere('sinopsis', 'like', "%".$keyword."%")
         ->orWhere('year', 'like', "%".$keyword."%")
-        ->distinct()
-        ->paginate(10);
+        ->first();
 
         return view('components.searchresult', compact('film'));
     }

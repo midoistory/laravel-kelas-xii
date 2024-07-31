@@ -3,19 +3,23 @@
 @section('content')
     <div class="general">
         <h4 class="latest-text w3_latest_text">Search Result</h4>
-        @if ($film->count())
-            <div class="film-list" style="margin-left: 100px;">
-                @foreach ($film as $item) <!-- Ganti $film dengan $item di sini -->
-                    <div class="film-item">
-                        <h3>{{ $item->title }}</h3>
-                        <img src="{{ $item->poster }}" alt="{{ $item->title }}">
-                        <p>Year : {{ $item->year }}</p>
-                        <p>{{ $item->sinopsis }}</p>
-                    </div>
-                @endforeach
+        @if ($film)
+            <div class="film-item" style="padding-left: 100px">
+                <h3>{{ $film->title }}</h3>
+                <img src="{{ $film->poster }}" alt="{{ $film->title }}">
+                <p>Year : {{ $film->year }}</p>
+                    <p>{{ $film->sinopsis }}</p>
             </div>
         @else
-            <p>No films found for "{{ request()->input('cari') }}"</p>
+            <h3 style="padding-left: 100px">No films found for "{{ request()->input('search') }}"</h3>
         @endif
     </div>
+
+    <style>
+        .film-item {
+            max-width: 300px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+    </style>
 @endsection
